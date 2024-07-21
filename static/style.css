@@ -1,0 +1,36 @@
+
+.messages-container {
+    height: 70vh;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.message {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.message p {
+    background: lightskyblue;
+    padding: 15px;
+    justify-self: start;
+    border-radius: 10px;
+}
+
+.own {
+    justify-self: end !important;
+    background: blue !important;
+    color: white;
+}
+
+.bordered {
+    display: flex;
+    flex-direction: column;
+}
+
+.bottom {
+    justify-self: flex-end;
+}

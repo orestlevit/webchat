@@ -1,0 +1,36 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div id="room_list" class="d-flex">
+        <div class="col-2 me-4">
+            <h2>Users</h2>
+            <ul class="list-group">
+                {% for room, other_user in rooms_with_users %}
+                    <li class="list-group-item">
+                        <a href="#" class="room-link nav-link" data-room-id="{{ room.id }}">
+                            {% if room.users.all|length > 2 %}
+                                {{ room }}
+                            {% else %}
+                                <img src="{{ other_user.avatar.url }}" class="rounded-circle me-2" width="50">
+                                {{ other_user.username }}
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="chat-container" class="col-10">
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="{% static 'room.js' %}"></script>
+
+{% endblock %}
