@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'channels',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,6 @@ CHANNEL_LAYERS = {
 }
 
 
+LOGIN_URL = '/authorization'
+LOGIN_REDIRECT_URL = '/rooms'
+LOGOUT_REDIRECT_URL = '/authorization'

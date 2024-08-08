@@ -1,8 +1,9 @@
 userId = document.getElementById("userId").value;
 roomId = document.getElementById("roomId").value;
+ws?.close()
 ws = new WebSocket(`ws:${window.location.host}/ws/chat/${roomId}`);
 
-ws.open = () => {
+ws.onopen = () => {
     ws.send(
         JSON.stringify({
             'type': 'connected',
@@ -15,14 +16,26 @@ ws.open = () => {
 ws.onmessage = (res) => {
     let obj = JSON.parse(res.data)
     if (obj.type === "connected") {
-        alert(1)
-        document.querySelector('.message').innerHTML += `<span>${obj.message.msg}</span>`
+        alertify.success(obj.message.msg);
     } else {
         let messageData = JSON.parse(obj.message);
-        document
-            .querySelector('.message')
-            .innerHTML += `<b>${messageData.username}</b></b><span>${messageData.text}</span>`
+        if (messageData.userId === userId) {
+            document.querySelector(".message").innerHTML += `<p class='own'>${messageData.text}</p>`;
+        } else {
+            let avatar = document.getElementById("avatar").src;
+            document.querySelector(".message").innerHTML += `
+                <p class="d-flex">
+                    <img src="${avatar}" class="rounded-circle me-2" width="50">
+                    <span>
+                        <b>${messageData.username}</b><br>
+                        ${messageData.text}
+                        </span>
+                </p>
+
+        `
     }
+ }
+ document.querySelector(".messages-container").scrollTo(0, document.querySelector(".messages-container").scrollHeight)
 }
 
 
